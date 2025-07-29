@@ -12,6 +12,7 @@ services:
     volumes:
       - cronicle_data:/opt/cronicle
       - /var/scripts:/var/scripts
+      - /var/cronicle:/var/cronicle
     environment:
       - TZ=Europe/Zurich
     restart: unless-stopped

@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  cronicle:
+    build:
+      context: .
+    image: cronicle
+    container_name: cronicle
+    ports:
+      - "3012:3012"
+      - "3010:3010"
+    volumes:
+      - cronicle_data:/opt/cronicle
+      - /var/scripts:/var/scripts
+    environment:
+      - TZ=Europe/Zurich
+    restart: unless-stopped
+
+volumes:
+  cronicle_data:

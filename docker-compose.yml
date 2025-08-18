@@ -15,7 +15,9 @@ services:
       - /var/scripts:/opt/cronicle/scripts
       - /var/cronicle/plugins:/opt/cronicle/plugins
     environment:
+   #   - CRONICLE_base_app_url=http://localhost:3012
       - TZ=Europe/Zurich
+      - CRONICLE_master_server=true
     restart: unless-stopped
 
 volumes:

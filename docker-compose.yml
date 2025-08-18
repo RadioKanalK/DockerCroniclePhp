@@ -10,12 +10,14 @@ services:
       - "3012:3012"
       - "3010:3010"
     volumes:
-      - cronicle_data:/opt/cronicle
-      - /var/scripts:/var/scripts
-      - /var/cronicle:/var/cronicle
+      - cronicle_data:/opt/cronicle/data
+      - cronicle_logs:/opt/cronicle/logs
+      - /var/scripts:/opt/cronicle/scripts
+      - /var/cronicle/plugins:/opt/cronicle/plugins
     environment:
       - TZ=Europe/Zurich
     restart: unless-stopped
 
 volumes:
   cronicle_data:
+  cronicle_logs:

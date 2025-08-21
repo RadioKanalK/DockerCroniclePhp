@@ -14,7 +14,7 @@ services:
       - cronicle_logs:/opt/cronicle/logs
       - /var/scripts:/opt/scripts
       - /var/cronicle/plugins:/opt/cronicle/plugins
-      - /var/meta:/opt/meta
+      - meta_data:/opt/meta:rw
     ports:
       - "3012:3012"   # Web GUI
     networks:
@@ -35,7 +35,7 @@ services:
       - cronicle_logs:/opt/cronicle/logs
       - /var/scripts:/opt/scripts
       - /var/cronicle/plugins:/opt/cronicle/plugins
-      - /var/meta:/opt/meta
+      - meta_data:/opt/meta:rw
     networks:
       - cronicle_net
     depends_on:
@@ -45,6 +45,7 @@ services:
 volumes:
   cronicle_data:
   cronicle_logs:
+  meta_data:
 
 networks:
   cronicle_net:

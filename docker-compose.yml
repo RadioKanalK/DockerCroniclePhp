@@ -12,7 +12,7 @@ services:
     volumes:
       - cronicle_data:/opt/cronicle/data
       - cronicle_logs:/opt/cronicle/logs
-      - /var/scripts:/opt/cronicle/scripts
+      - /var/scripts:/opt/scripts
       - /var/cronicle/plugins:/opt/cronicle/plugins
       - /var/meta:/opt/meta # shared drive with Apache Webserver Docker Container --> ask Chat
     environment:

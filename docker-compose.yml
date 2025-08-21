@@ -4,7 +4,7 @@ services:
   cronicle-master:
     build:
       context: .
-      dockerfile: Dockerfile-master
+      dockerfile: Dockerfile
     container_name: cronicle-master
     environment:
       - CRONICLE_role=master
@@ -17,15 +17,18 @@ services:
       - /var/meta:/opt/meta
     ports:
       - "3012:3012"   # Web GUI
+    networks:
+      - cronicle_net
     restart: unless-stopped
 
   cronicle-worker:
     build:
       context: .
-      dockerfile: Dockerfile-worker
+      dockerfile: Dockerfile
     container_name: cronicle-worker
     environment:
       - CRONICLE_role=worker
+      - CRONICLE_master_host=cronicle-master
       - TZ=Europe/Zurich
     volumes:
       - cronicle_data:/opt/cronicle/data
@@ -33,10 +36,15 @@ services:
       - /var/scripts:/opt/scripts
       - /var/cronicle/plugins:/opt/cronicle/plugins
       - /var/meta:/opt/meta
-    restart: unless-stopped
+    networks:
+      - cronicle_net
     depends_on:
       - cronicle-master
+    restart: unless-stopped
 
 volumes:
   cronicle_data:
   cronicle_logs:
+
+networks:
+  cronicle_net:

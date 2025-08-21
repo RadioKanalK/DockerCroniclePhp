@@ -1,25 +1,35 @@
 version: "3.8"
 
 services:
-  cronicle:
-    build:
-      context: .
-    image: cronicle
-    container_name: cronicle
-    ports:
-      - "3012:3012"
-      - "3010:3010"
+  cronicle-master:
+    image: bluet/cronicle:latest
+    container_name: cronicle-master
+    environment:
+      - CRONICLE_role=master
     volumes:
       - cronicle_data:/opt/cronicle/data
       - cronicle_logs:/opt/cronicle/logs
       - /var/scripts:/opt/scripts
       - /var/cronicle/plugins:/opt/cronicle/plugins
       - /var/meta:/opt/meta # shared drive with Apache Webserver Docker Container --> ask Chat
-    environment:
-   #   - CRONICLE_base_app_url=http://localhost:3012
-      - TZ=Europe/Zurich
-      - CRONICLE_master_server=true
+    ports:
+      - "3012:3012"   # Web GUI
     restart: unless-stopped
+
+  cronicle-worker:
+    image: bluet/cronicle:latest
+    container_name: cronicle-worker
+    environment:
+      - CRONICLE_role=worker
+    volumes:
+      - cronicle_data:/opt/cronicle/data
+      - cronicle_logs:/opt/cronicle/logs
+      - /var/scripts:/opt/scripts
+      - /var/cronicle/plugins:/opt/cronicle/plugins
+      - /var/meta:/opt/meta # shared drive with Apache Webserver Docker Container --> ask Chat
+    restart: unless-stopped
+    depends_on:
+      - cronicle-master
 
 volumes:
   cronicle_data:

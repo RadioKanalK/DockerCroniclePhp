@@ -46,7 +46,8 @@ volumes:
   cronicle_data:
   cronicle_logs:
   meta_data:
-    external: true
+    external:
+      name: meta_data
 
 networks:
   cronicle_net:
